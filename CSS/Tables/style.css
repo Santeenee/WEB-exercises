@@ -1,0 +1,54 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+body {
+	min-height: 100vh;
+	margin: 1rem;
+}
+
+table,
+th,
+td {
+	border: 0;
+	min-height: 50px;
+}
+
+.main-table {
+	/* centers display:"block" elements (like a table)*/
+	margin: 0 auto;
+}
+
+.main-table > tbody > tr > td:first-child {
+	padding-right: 0.5rem;
+}
+
+tr.images td {
+	padding-top: 0.5rem;
+}
+
+tr.text td {
+	padding: 0.5rem 0;
+}
+
+th {
+	font-size: 1.5em;
+	text-align: left;
+	border-bottom: 1px solid black;
+	margin-bottom: 1rem;
+}
+
+img {
+	max-width: 400px;
+}
+
+.table-description {
+	width: 100%;
+}
+
+.price {
+	text-align: right;
+	font-weight: bold;
+}
