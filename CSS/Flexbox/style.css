@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+:root {
+	--column-width: 350px;
+	--gap: 0.5rem;
+}
+
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+body {
+	min-height: 100vh;
+	margin: 0 1rem;
+}
+
+main {
+	display: flex;
+	flex-flow: column nowrap;
+
+	max-width: calc(calc(var(--column-width, 350px) * 2) + var(--gap));
+	margin: 0 auto;
+	gap: 3rem;
+}
+
+.container {
+	display: flex;
+	flex-flow: row wrap;
+	gap: var(--gap);
+}
+
+h2 {
+	font-family: 'Lobster', cursive;
+	font-weight: 600;
+	font-size: clamp(1rem, 2vw + 1rem, 2rem);
+
+	width: 100%;
+	padding: 2rem 0 0.1rem 0;
+	border-bottom: 1px solid black;
+	color: green;
+}
+
+.chinese-chars {
+	margin-left: 1rem;
+	color: hsl(120, 27%, 52%);
+}
+
+img {
+	max-width: var(--column-width, 350px);
+	min-width: 150px;
+}
+
+.container-img {
+	position: relative;
+}
+
+.dish-name {
+	position: absolute;
+	bottom: 20px;
+
+	width: var(--column-width, 350px);
+	padding: 0.4rem 0.4rem 0.4rem 1.5rem;
+
+	color: white;
+	font-size: 1.2em;
+	font-weight: bold;
+	background-color: hsla(120 27% 52% / 0.7);
+}
+
+.dish {
+	display: flex;
+	flex-flow: row nowrap;
+	width: var(--column-width, 350px);
+	padding: var(--gap) var(--gap) 0 var(--gap);
+}
+
+.price {
+	font-weight: bold;
+	text-align: right;
+	color: green;
+	margin-left: auto;
+}
+
+@media (max-width: 750px) {
+	h2 {
+		width: 350px;
+	}
+	.container > * {
+		margin: 0 auto;
+	}
+	main {
+		margin-bottom: 4rem;
+	}
+}
