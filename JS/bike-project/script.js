@@ -62,36 +62,45 @@ function addToCart() {
 }
 
 function showCart() {
-  let isEmpty = true
+  // let isEmpty = true
   console.clear()
   console.log('Cart')
+  if (cart.length == 0) {
+    console.warn("the cart is empty")
+    return
+  }
+  console.log('┌─────────────────────────────────')
   for (let item of cart) {
     for (let bike of bikes) {
       if (item.idBike == bike.id) {
-        console.log(`${item.quantity} "${bike.name}"`)
-        isEmpty = false
+        console.log(`│ ${item.quantity} "${bike.name}"`)
+        // isEmpty = false
       }
     }
   }
-  if (isEmpty) console.warn("the cart is empty")
+  console.log('└─────────────────────────────────')
 }
 
-function removeFromCart() { //TODO
+function removeFromCart() {
   printBikes()
+  if (cart.length == 0) {
+    console.warn("the cart is empty")
+    return
+  }
   let bikeChoice = prompt('Choose bike to remove typing ID', '4')
   //TODO let quantity = prompt('Scegli QUANTITA', '2')
 
   for (let i = 0; i < cart.length; i++) {
-    for (let bike of bikes) {
-      if (cart[i].idBike == bike.id) {
-        console.log(`${cart[i].quantity} ${bike.name} removed`)
+    for (let j = 0; j < bikes.length; j++) {
+      if (cart[i].idBike == bikeChoice && cart[i].idBike == bikes[j].id) {
+        console.warn(`${cart[i].quantity} "${bikes[j].name}" removed`)
         cart.splice(i, 1)
       }
     }
   }
 }
 
-function checkout() { //?
+function checkout() {
   showCart()
   //calcolo totale money
   let dailyPrice = 0;
@@ -142,10 +151,10 @@ while (scelta == 1 || scelta == 2 || scelta == 3 || scelta == 4) {
       showCart()  // it works //TODO ADD PRICES... somehow
       break;
     case 4:
-      removeFromCart() //?
+      removeFromCart() // it works
       break;
     case 5:
-      checkout()
+      checkout() // it works
       break;
   }
 }
