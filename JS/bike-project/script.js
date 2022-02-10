@@ -11,19 +11,37 @@ const fullDayRates = [75, 35]
 
 //* FUNCTIONS
 function menu() {
-  console.log('\nPress')
-  console.log("    1: bikes list");
-  console.log("    2: add a bike to the cart");
-  console.log("    3: show cart");
-  console.log("    4: remove bike from cart");
-  console.log("    5: checkout");
-  console.log("other: exit\n");
+  let menuToPrint =
+    '\nPress\n' +
+    "    1: bikes list\n" +
+    "    2: add a bike to the cart\n" +
+    "    3: show cart\n" +
+    "    4: remove bike from cart\n" +
+    "    5: checkout\n" +
+    "other: exit\n\n"
+  console.log(menuToPrint)
+  // console.log('\nPress')
+  // console.log("    1: bikes list");
+  // console.log("    2: add a bike to the cart");
+  // console.log("    3: show cart");
+  // console.log("    4: remove bike from cart");
+  // console.log("    5: checkout");
+  // console.log("other: exit\n");
 }
 
 function printBikes() {
+  let toPrint = ''
   console.clear()
-  console.log(`\nBIKES LIST`)
-  console.log(`----------\n`)
+  // console.log(`\nBIKES LIST`)
+  console.log("%cBIKES LIST", "font-size: x-large");
+
+  // is bikes array empty?
+  if (bikes.length === 0) {
+    console.warn('There are no bikes')
+    return //better than using 'else'
+  }
+
+  toPrint += '┌───────────────────────────────────────────────────────────────\n'
   // console.table(bikes)
   let dailyPrice;
   for (let bike of bikes) {
@@ -38,8 +56,10 @@ function printBikes() {
         break;
       //...
     }
-    console.log(`ID[${bike.id}] (${bike.category}) "${bike.name}" daily: ${dailyPrice}$`)
+    toPrint += `│ ID[${bike.id}] (${bike.category}) "${bike.name}" daily: ${dailyPrice}$\n`
   }
+  toPrint += '└───────────────────────────────────────────────────────────────'
+  console.log(toPrint)
 }
 
 function addToCart() {
@@ -57,34 +77,40 @@ function addToCart() {
     }
   }
   if (!isInCart) {
-    cart.push({ 'idBike': bikeChoice, 'quantity': quantity }) //it works
+    cart.push({ 'idBike': bikeChoice, 'quantity': quantity })
   }
 }
 
 function showCart() {
-  // let isEmpty = true
+  let toPrint = ''
   console.clear()
-  console.log('Cart')
-  if (cart.length == 0) {
-    console.warn("the cart is empty")
+  // console.log('CART')
+  console.log("%cCART", "font-size: x-large");
+
+
+  if (cart.length === 0) {
+    // console.warn("the cart is empty")
+    console.log('%c The cart is empty ', 'background: yellow; color: black; padding: 10px;');
     return
   }
-  console.log('┌─────────────────────────────────')
+
+  toPrint += '┌─────────────────────────────────\n'
   for (let item of cart) {
     for (let bike of bikes) {
       if (item.idBike == bike.id) {
-        console.log(`│ ${item.quantity} "${bike.name}"`)
-        // isEmpty = false
+        toPrint += `│ ${item.quantity} "${bike.name}"\n`
       }
     }
   }
-  console.log('└─────────────────────────────────')
+  toPrint += '└─────────────────────────────────'
+  console.log(toPrint)
 }
 
 function removeFromCart() {
   printBikes()
   if (cart.length == 0) {
-    console.warn("the cart is empty")
+    // console.warn("the cart is empty")
+    console.log('%c The cart is empty ', 'background: yellow; color: black');
     return
   }
   let bikeChoice = prompt('Choose bike to remove typing ID', '4')
@@ -92,7 +118,7 @@ function removeFromCart() {
 
   for (let i = 0; i < cart.length; i++) {
     for (let j = 0; j < bikes.length; j++) {
-      if (cart[i].idBike == bikeChoice && cart[i].idBike == bikes[j].id) {
+      if (cart[i].idBike == bikeChoice && cart[i].idBike == bikes[j].id) { //??????????????????????????
         console.warn(`${cart[i].quantity} "${bikes[j].name}" removed`)
         cart.splice(i, 1)
       }
@@ -127,13 +153,13 @@ function checkout() {
     }
     total += moneyForTypeOfBike
   }
-  console.log(`\nTotal amount: ${total}$`)
+  console.log(`Total amount: %c${total}$`, "background: hsl(200 100% 20%); font-weight: bold; padding: 10px;")
 }
 
 
 //* EXECUTE
 let scelta = 1
-while (scelta == 1 || scelta == 2 || scelta == 3 || scelta == 4) {
+while (scelta == 1 || scelta == 2 || scelta == 3 || scelta == 4 || scelta == 5) {
 
   menu()
 
@@ -142,21 +168,21 @@ while (scelta == 1 || scelta == 2 || scelta == 3 || scelta == 4) {
 
   switch (scelta) {
     case 1:
-      printBikes() // it works
+      printBikes()
       break;
     case 2:
-      addToCart() // it works
+      addToCart()
       break;
     case 3:
-      showCart()  // it works //TODO ADD PRICES... somehow
+      showCart() //TODO ADD PRICES... somehow
       break;
     case 4:
-      removeFromCart() // it works
+      removeFromCart() //! it DOESN'T work
       break;
     case 5:
-      checkout() // it works
+      checkout()
       break;
   }
 }
 
-console.log('\nHave a nice day (￣︶￣)')
+console.log('%cHave a nice day (￣︶￣)', 'background: green; padding: 10px')
