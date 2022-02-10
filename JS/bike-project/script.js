@@ -29,7 +29,7 @@ function menu() {
   console.log(menuToPrint, `font-weight: bold`, '')
 }
 
-function printBikes() {
+function printBikes() { // 1
   console.clear()
   console.log("%cBIKES LIST", h2);
 
@@ -58,7 +58,7 @@ function printBikes() {
   console.log(toPrint)
 }
 
-function addToCart() {
+function addToCart() { // 2
 
   printBikes()
 
@@ -89,7 +89,7 @@ function addToCart() {
   console.log('%cItems added to cart', `background: green; color: black; ${padding} ${margin} ${radius}`)
 }
 
-function showCart() {
+function showCart() { // 3
   console.clear()
   console.log("%cCART", h2);
 
@@ -110,7 +110,7 @@ function showCart() {
   console.log(toPrint)
 }
 
-function removeFromCart() {
+function removeFromCart() { // 4
   printBikes()
   if (cart.length === 0) {
     console.log('%c The cart is empty ', warn);
@@ -135,7 +135,7 @@ function removeFromCart() {
   }
 }
 
-function checkout() {
+function checkout() { // 5
   showCart()
 
   //tot money
