@@ -86,7 +86,7 @@ function addToCart() { // 2
   if (!isInCart) {
     cart.push({ 'idBike': bikeChoice, 'quantity': quantity })
   }
-  console.log('%cItems added to cart', `background: green; color: black; ${padding} ${margin} ${radius}`)
+  console.log('%cItems added to cart', `background: green; color: white; ${padding} ${margin} ${radius}`)
 }
 
 function showCart() { // 3
@@ -163,7 +163,7 @@ function checkout() { // 5
     }
     total += moneyForTypeOfBike
   }
-  console.log(`Total amount: %c${total}$`, `background: hsl(200 100% 20%); font-weight: bold; ${padding} ${margin} ${radius}`)
+  console.log(`Total amount: %c${total}$`, `background: hsl(200 100% 20%); color: white; font-weight: bold; ${padding} ${margin} ${radius}`)
 }
 
 
@@ -196,4 +196,4 @@ while (userChoice >= 1 && userChoice <= 5) {
 
 console.clear()
 checkout()
-console.log('%cBye, have a nice day (￣︶￣)', `background: green; ${padding} ${margin} ${radius}`)
+console.log('%cBye, have a nice day (￣︶￣)', `background: green; color:white; ${padding} ${margin} ${radius}`)
