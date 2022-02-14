@@ -112,6 +112,7 @@ function showCart() { // 3
 
 function removeFromCart() { // 4
   printBikes()
+
   if (cart.length === 0) {
     console.log('%c The cart is empty ', warn);
     return
@@ -119,16 +120,18 @@ function removeFromCart() { // 4
 
   let x = 0
   do {
-    x = Number(prompt('Choose bike to REMOVE typing its ID (1-4)', '4'))
+    x = Number(prompt('Choose bike to REMOVE typing its ID (1-4)', '1'))
   } while (!(x >= 1 && x <= 4) || isNaN(x));
   let bikeChoice = x
 
   for (let i = 0; i < cart.length; i++) {
     for (let j = 0; j < bikes.length; j++) {
-      if (cart.length != 0) {
-        if (cart[i].idBike == bikeChoice && cart[i].idBike == bikes[j].id) {
-          console.log(`%c${cart[i].quantity} x "${bikes[j].name}" removed`, warn)
+      if (cart.length != 0) { //?
+        if (cart[i].idBike == bikeChoice && cart[i].idBike == bikes[j].id) { //!
+          tempQuantity = cart[i].quantity
+          tempBikeName = bikes[j].name
           cart.splice(i, 1)
+          console.log(`%c${tempQuantity} x "${tempBikeName}" removed`, warn)
         }
       }
     }
@@ -186,6 +189,7 @@ while (userChoice >= 1 && userChoice <= 5) {
       showCart() //TODO ADD PRICES... somehow
       break;
     case 4:
+      //! BUG -> trying to remove a bike when there are more than one generates exception
       removeFromCart()
       break;
     case 5:
