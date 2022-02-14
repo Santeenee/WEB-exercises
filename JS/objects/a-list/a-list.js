@@ -1,31 +1,36 @@
 let list = {}
 
-//* RECURSION
-function arrayToList(arr, flag = true, restObj = {}) {
+function prettyPrintObj(obj) {
+  console.log(JSON.stringify(obj, null, 4));
+}
+
+//* RECURSION (～￣▽￣)～
+function arrayToList(arr, firstCall = true) {
 
   //first time calling arrayToList()
-  if (flag) {
-    restObj.value = arr[arr.length - 1]
-    restObj.rest = null
-    console.log(restObj)
-    return arrayToList(arr, false, restObj)
+  if (firstCall) {
+    console.log()
+    console.log(arr)
+    console.log()
+
+    list.value = arr[arr.length - 1]
+    list.rest = null
+
+    arr.pop() // removes last value
+
+    return arrayToList(arr, false)
   }
 
-  //last time calling arrayToList()
-  if (arr.length == 0) {
-    console.log('return undefined: ' + restObj)
-    return list
-  }
+  // last time calling arrayToList()
+  if (arr.length === 0) return prettyPrintObj(list)
 
-  restObj.value = arr[arr.length - 1]
-  restObj.rest = Object.assign({}, restObj)
+  //every other time calling arrayToList()
+  list.rest = Object.assign({}, list)
+  list.value = arr[arr.length - 1]
 
-  console.log(restObj)
+  arr.pop() // removes last value
 
-  list = Object.assign({}, restObj)
-
-  arr.pop() //removes last value
   return arrayToList(arr, false)
 }
 
-console.log(arrayToList([1, 2, 3, 4, 5, 6]))
+arrayToList([1, 2, 3, 4, 5, 6])
