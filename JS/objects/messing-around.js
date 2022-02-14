@@ -55,7 +55,7 @@ console.table(car2)
 car.func = function () { return 9 }
 console.log(car.func())
 
-//* USE this IN METHODS BECAUSE IT HAS TO WORK ALWAYS WITH OTHER OBJECTS
+//* USE 'this' IN METHODS BECAUSE IT HAS TO WORK ALWAYS WITH OTHER OBJECTS
 
 /*
       ██╗███████╗ ██████╗ ███╗   ██╗
