@@ -66,10 +66,7 @@ console.log(car.func())
   ╚════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═══╝
 */
 
-//let jsonString = JSON.stringifY(<obj>) //*omit methods
+//let jsonString = JSON.stringifY(<obj>) //* omit methods
 //let jsObj = JSON.parse(jsonString) //* convert from json to obj
 
 // alternatives = csv, xml
-
-
-
