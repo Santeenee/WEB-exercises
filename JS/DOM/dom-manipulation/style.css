@@ -1,0 +1,45 @@
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+body {
+	min-height: 100vh;
+}
+
+h1 {
+	text-align: center;
+	padding: 1rem;
+	margin-bottom: 1rem;
+}
+
+#mountains {
+	margin: 0 auto;
+}
+
+table {
+	margin: 0 auto;
+	border-radius: 6px;
+	border-collapse: collapse;
+	outline: 1px solid black;
+	/*outline-offset: 5px;*/
+}
+
+tr:first-child {
+	text-align: left;
+	border-bottom: 1px solid black;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 1rem;
+}
+
+th {
+	font-size: 1.2em;
+}

@@ -10,10 +10,8 @@ function arrayToList(arr, firstCall = true) {
 
   //first time calling arrayToList()
   if (firstCall) {
-    list.value = arr[arr.length - 1]
-    list.rest = null
-
-    arr.pop() // removes last value
+    list.value = arr.pop() // removes last value
+    list.rest = null    
 
     return arrayToList(arr, false)
   }
@@ -23,9 +21,7 @@ function arrayToList(arr, firstCall = true) {
 
   //every other time calling arrayToList()
   list.rest = Object.assign({}, list)
-  list.value = arr[arr.length - 1]
-
-  arr.pop() // removes last value
+  list.value = arr.pop() // removes last value
 
   return arrayToList(arr, false)
 }
