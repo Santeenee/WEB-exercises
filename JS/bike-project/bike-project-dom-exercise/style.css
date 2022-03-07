@@ -10,6 +10,16 @@
 body {
 	min-height: 100vh;
 	padding: 1rem;
+
+	background: #136a8a; /* fallback for old browsers */
+	background: -webkit-linear-gradient(
+		to top,
+		#267871,
+		#136a8a
+	); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to top, #267871, #136a8a);
+
+	color: white;
 }
 
 header {
@@ -17,40 +27,89 @@ header {
 	text-align: center;
 }
 
-/* h1 {
-} */
+h1 {
+	font-size: clamp(2rem, 1rem + 4vw, 10rem);
+
+	width: max-content;
+	margin: 0 auto;
+	position: relative;
+}
+
+h1::before,
+h1::after {
+	content: '';
+	position: absolute;
+
+	min-width: clamp(2rem, 3rem + 4vw, 10rem);
+	min-height: clamp(2rem, 3rem + 4vw, 10rem);
+	aspect-ratio: 1;
+
+	background-size: contain; /* cover? */
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url(./assets/pedal_bike_white_48dp.svg);
+}
+
+h1::before {
+	left: calc(clamp(2rem, 3rem + 4vw, 10rem) * -1.1);
+}
+
+h1::after {
+	right: calc(clamp(2rem, 3rem + 4vw, 10rem) * -1.1);
+}
+
+.subtitle {
+	font-size: 1.2rem;
+	color: hsl(0 0% 90%);
+}
 
 main {
 	margin: 0 auto;
-	max-width: 800px;
-	outline: 2px solid rgb(150, 150, 150);
-	outline-offset: 0.5rem;
+	max-width: 1200px;
+	/* outline: 2px solid red;
+	outline-offset: 0.5rem; */
 }
 
 .category {
 	margin-bottom: 3rem;
 }
 
+.hr {
+	height: 1px;
+	background-color: hsl(0 0% 60%);
+	margin-bottom: 2rem;
+}
+
 h2 {
-	margin-bottom: 0.5rem;
+	text-align: center;
+	font-weight: 400;
+	font-style: italic;
+
+	padding-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.prices {
+	margin-bottom: 0.3rem;
 }
 
 .container-images {
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: start;
+	justify-content: center;
 	align-items: center;
 	gap: 1rem;
-	padding: 1rem 0;
+	padding-bottom: 1rem;
 }
 
-.category > div > div/*.container-img*/ {
+.bike-wrapper {
+	/* flex: 1 1 0; */
 	display: flex;
 	flex-flow: column nowrap;
 	gap: 0.3rem;
 }
 
 img {
-	max-width: 300px;
+	max-width: clamp(250px, 250px + 10vw, 400px);
 	aspect-ratio: 4/3;
 }
