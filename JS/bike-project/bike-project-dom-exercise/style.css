@@ -1,0 +1,56 @@
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+body {
+	min-height: 100vh;
+	padding: 1rem;
+}
+
+header {
+	margin-bottom: 3rem;
+	text-align: center;
+}
+
+/* h1 {
+} */
+
+main {
+	margin: 0 auto;
+	max-width: 800px;
+	outline: 2px solid rgb(150, 150, 150);
+	outline-offset: 0.5rem;
+}
+
+.category {
+	margin-bottom: 3rem;
+}
+
+h2 {
+	margin-bottom: 0.5rem;
+}
+
+.container-images {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: start;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem 0;
+}
+
+.category > div > div/*.container-img*/ {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 0.3rem;
+}
+
+img {
+	max-width: 300px;
+	aspect-ratio: 4/3;
+}
