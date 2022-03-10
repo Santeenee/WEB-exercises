@@ -15,17 +15,35 @@
 		<header>
 			<h1>BIKES & RATES</h1>
 			<p class="subtitle">Time to rent some bikes...</p>
-			<!-- <div class="create-bike">
-				<label for="inputAddBike"
-					>Add Bike
-					<input
-						type="text"
-						name=""
-						id="inputAddBike"
-						placeholder="Graziella Bella"
-					/>
-				</label>
-			</div> -->
+			<button id="add-bike-btn">add bike</button>
+			<button id="add-category-btn">Add category</button>
+
+			<!-- ---------------- -->
+			<!-- TODO FORM ACTION -->
+			<!-- ---------------- -->
+
+			<form action="" id="add-category-a-comparsa" class="hidden">
+				<label for="category-name-input">Category name</label>
+				<input
+					type="text"
+					name="category-name-input"
+					id="category-name-input"
+					required
+				/>
+
+				<label for="daily-price-input">Daily price</label>
+				<input
+					type="text"
+					name="daily-price-input"
+					id="daily-price-input"
+					required
+				/>
+
+				<button role="button" type="submit" class="submit">Submit</button>
+			</form>
+
+			<button id="preorder-bike-btn">preorder bike</button>
+			<button id="remove-bike-btn">remove bike</button>
 		</header>
 		<main></main>
 	</body>
