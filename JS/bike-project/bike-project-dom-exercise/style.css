@@ -1,3 +1,8 @@
+:root {
+	--green: hsl(134, 100%, 50%);
+	--yellow: hsl(41, 100%, 50%);
+}
+
 *,
 *::before,
 *::after {
@@ -40,8 +45,8 @@ h1::after {
 	content: '';
 	position: absolute;
 
-	min-width: clamp(2rem, 3rem + 4vw, 10rem);
-	min-height: clamp(2rem, 3rem + 4vw, 10rem);
+	min-width: clamp(2rem, 2.5rem + 3vw, 10rem);
+	min-height: clamp(2rem, 2.5rem + 3vw, 10rem);
 	aspect-ratio: 1;
 
 	background-size: contain; /* cover? */
@@ -51,16 +56,92 @@ h1::after {
 }
 
 h1::before {
-	left: calc(clamp(2rem, 3rem + 4vw, 10rem) * -1.1);
+	left: calc(clamp(2rem, 2.5rem + 3vw, 10rem) * -1.1);
+	transform: rotateY(180deg);
 }
 
 h1::after {
-	right: calc(clamp(2rem, 3rem + 4vw, 10rem) * -1.1);
+	right: calc(clamp(2rem, 2.5rem + 3vw, 10rem) * -1.1);
 }
 
 .subtitle {
 	font-size: 1.2rem;
 	color: hsl(0 0% 90%);
+	margin-bottom: 2rem;
+}
+
+button {
+	display: block;
+
+	margin: 0 auto;
+	margin-bottom: 1rem;
+	padding: 0.75rem 1rem;
+
+	min-width: 15em;
+
+	font-size: 1rem;
+	text-transform: uppercase;
+
+	border: none;
+
+	user-select: none;
+	cursor: pointer;
+}
+
+button:hover,
+button:focus-visible {
+	outline: 2px solid white;
+	outline-offset: 2px;
+}
+
+.submit {
+	background-color: var(--green);
+}
+
+.submit:hover,
+.submit:focus-visible {
+	outline: 2px solid var(--green);
+}
+
+#remove-bike-btn {
+	background-color: var(--yellow);
+}
+
+#remove-bike-btn:hover,
+#remove-bike-btn:focus-visible {
+	outline: 2px solid var(--yellow);
+}
+
+label {
+	display: inline-block;
+	min-width: 13em;
+	text-align: left;
+	margin-bottom: 0.3rem;
+}
+
+.hidden {
+	display: none;
+}
+
+input[type='text'] {
+	display: block;
+	margin: 0 auto;
+
+	max-width: 13em;
+	font-size: 1rem;
+
+	/* border: none; */
+
+	padding: 0.3rem;
+	margin-bottom: 0.5rem;
+}
+
+input[type='text']:last-of-type {
+	margin-bottom: 1.5rem;
+}
+
+.submit {
+	min-width: 13rem;
 }
 
 main {
@@ -83,7 +164,6 @@ main {
 h2 {
 	text-align: center;
 	font-weight: 400;
-	font-style: italic;
 
 	padding-top: 1rem;
 	margin-bottom: 1rem;

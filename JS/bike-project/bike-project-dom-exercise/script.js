@@ -37,7 +37,35 @@ let bikeCatalog = { categoryArr }
 //* DOM STUFF
 const main = document.querySelector('main')
 
+const btns = document.querySelectorAll('button')
+// const btnAdd = document.querySelector('#add-bike-btn')
+// const btnPreorder = document.querySelector('#preorder-bike-btn')
+// const btnRemove = document.querySelector('#remove-bike-btn')
+
 //* FUNCTIONS
+
+// function addBike() {
+
+// }
+
+// function preorderBike() {
+
+// }
+
+// function removeBike() {
+
+// }
+
+function addCategory() {
+  //? maybe the use of createElement here doesn't make any sense
+  //? To better control the behaviour of the button, I think it's
+  //? better to set display to 'none' on the container of the form
+  //? and than toggle the display 'none/block' in this function
+
+  let divAComparsa = document.getElementById('add-category-a-comparsa')
+  divAComparsa.classList.toggle('hidden')
+  //* that's waaay better
+}
 
 function printCatalog() {
   // console.log('%cCatalog:', "font-size: x-large")
@@ -98,3 +126,15 @@ function printCatalog() {
 //* FUNCTION CALLS
 
 printCatalog()
+
+//* CLICK LISTENERS ON BUTTONS
+let buttons = Array.from(btns)
+for (let btn of buttons) { //do not remove 'let'
+  btn.addEventListener('click', () => {
+    if (btn.id === 'add-category-btn') addCategory()
+
+    // if (btn.id === 'add-bike-btn') addBike()
+    // else if (btn.id === 'preorder-bike-btn') preorderBike()
+    // else if (btn.id === 'remove-bike-btn') removeBike()
+  }/*, { once: true }*/)
+}
