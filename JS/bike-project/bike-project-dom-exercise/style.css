@@ -80,7 +80,7 @@ button {
 	min-width: 15em;
 
 	font-size: 1rem;
-	text-transform: uppercase;
+	text-transform: capitalize;
 
 	border: none;
 
@@ -94,8 +94,16 @@ button:focus-visible {
 	outline-offset: 2px;
 }
 
+.inline-block {
+	display: inline-block;
+	margin: 1rem 0 2rem 0;
+	outline: 2px solid white;
+	outline-offset: 0.5rem;
+}
+
 .submit {
 	background-color: var(--green);
+	margin-bottom: 0;
 }
 
 .submit:hover,

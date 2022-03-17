@@ -16,36 +16,82 @@
 			<h1>BIKES & RATES</h1>
 			<p class="subtitle">Time to rent some bikes...</p>
 			<button id="add-bike-btn">add bike</button>
-			<button id="add-category-btn">Add category</button>
 
 			<!-- ---------------- -->
 			<!-- TODO FORM ACTION -->
 			<!-- ---------------- -->
 
-			<form action="" id="add-category-a-comparsa" class="hidden">
-				<label for="category-name-input">Category name</label>
-				<input
-					type="text"
-					name="category-name-input"
-					id="category-name-input"
-					required
-				/>
+			<form action="" id="add-bike-a-comparsa" class="hidden">
+				<div class="inline-block">
+					<label for="bike-name-input">Bike name</label>
+					<input
+						type="text"
+						name="bike-name-input"
+						id="bike-name-input"
+						required
+					/>
 
-				<label for="daily-price-input">Daily price</label>
-				<input
-					type="text"
-					name="daily-price-input"
-					id="daily-price-input"
-					required
-				/>
+					<label for="category-name-input">Category name</label>
+					<input
+						type="text"
+						name="category-name-input"
+						id="category-name-input"
+						required
+					/>
 
-				<button role="button" type="submit" class="submit">Submit</button>
+					<label for="daily-price-input">Daily price</label>
+					<input
+						type="text"
+						name="daily-price-input"
+						id="daily-price-input"
+						required
+					/>
+
+					<button role="button" type="submit" class="submit">Submit</button>
+				</div>
 			</form>
 
+			<!-- <button id="add-category-btn">Add category</button>
+
+			<form action="" id="add-category-a-comparsa" class="hidden">
+				<div class="inline-block">
+					<label for="category-name-input">Category name</label>
+					<input
+						type="text"
+						name="category-name-input"
+						id="category-name-input"
+						required
+					/>
+
+					<label for="daily-price-input">Daily price</label>
+					<input
+						type="text"
+						name="daily-price-input"
+						id="daily-price-input"
+						required
+					/>
+
+					<button role="button" type="submit" class="submit">Submit</button>
+				</div>
+			</form> -->
+
 			<button id="preorder-bike-btn">preorder bike</button>
+
+			<form action="" id="preorder-bike-a-comparsa" class="hidden">
+				<div class="inline-block">
+					<h3>Choose bike to preorder:</h3>
+					<p>work in progress...</p>
+					<!-- genero automaticamente tutta la lista di oggetti (bikes)
+					che potrò selezionare tramite checkbox o button -->
+
+					<button role="button" type="submit" class="submit">Submit</button>
+				</div>
+			</form>
 			<button id="remove-bike-btn">remove bike</button>
 		</header>
-		<main></main>
+		<main>
+			<!-- Javascript -->
+		</main>
 	</body>
 </html>
 

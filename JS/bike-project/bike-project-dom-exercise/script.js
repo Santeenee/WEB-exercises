@@ -48,23 +48,38 @@ const btns = document.querySelectorAll('button')
 
 // }
 
-// function preorderBike() {
-
-// }
+function preorderBike() {
+  let divAComparsa = document.getElementById('preorder-bike-a-comparsa')
+  divAComparsa.classList.toggle('hidden')
+}
 
 // function removeBike() {
 
 // }
 
-function addCategory() {
+function hideForms() {
+  let forms = document.querySelectorAll('form')
+  for (let form of forms) {
+    if (!form.classList.contains('hidden')) {
+      form.classList.add('hidden')
+    }
+  }
+}
+
+function addBike() {
   //? maybe the use of createElement here doesn't make any sense
   //? To better control the behaviour of the button, I think it's
   //? better to set display to 'none' on the container of the form
   //? and than toggle the display 'none/block' in this function
 
-  let divAComparsa = document.getElementById('add-category-a-comparsa')
+  let divAComparsa = document.getElementById('add-bike-a-comparsa')
   divAComparsa.classList.toggle('hidden')
   //* that's waaay better
+}
+
+function addCategory() {
+  let divAComparsa = document.getElementById('add-category-a-comparsa')
+  divAComparsa.classList.toggle('hidden')
 }
 
 function printCatalog() {
@@ -131,10 +146,16 @@ printCatalog()
 let buttons = Array.from(btns)
 for (let btn of buttons) { //do not remove 'let'
   btn.addEventListener('click', () => {
-    if (btn.id === 'add-category-btn') addCategory()
-
+    hideForms()
     // if (btn.id === 'add-bike-btn') addBike()
-    // else if (btn.id === 'preorder-bike-btn') preorderBike()
+    // else if (btn.id === 'add-category-btn') addCategory()
+
+    /*else*/ if (btn.id === 'preorder-bike-btn') preorderBike()
     // else if (btn.id === 'remove-bike-btn') removeBike()
   }/*, { once: true }*/)
 }
+
+//?
+// document.addEventListener('load', () => {
+
+// })
