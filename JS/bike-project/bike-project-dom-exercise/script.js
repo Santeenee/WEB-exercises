@@ -66,21 +66,21 @@ function hideForms() {
   }
 }
 
-function addBike() {
-  //? maybe the use of createElement here doesn't make any sense
-  //? To better control the behaviour of the button, I think it's
-  //? better to set display to 'none' on the container of the form
-  //? and than toggle the display 'none/block' in this function
+// function addBike() {
+//   //? maybe the use of createElement here doesn't make any sense
+//   //? To better control the behaviour of the button, I think it's
+//   //? better to set display to 'none' on the container of the form
+//   //? and than toggle the display 'none/block' in this function
 
-  let divAComparsa = document.getElementById('add-bike-a-comparsa')
-  divAComparsa.classList.toggle('hidden')
-  //* that's waaay better
-}
+//   let divAComparsa = document.getElementById('add-bike-a-comparsa')
+//   divAComparsa.classList.toggle('hidden')
+//   //* that's waaay better
+// }
 
-function addCategory() {
-  let divAComparsa = document.getElementById('add-category-a-comparsa')
-  divAComparsa.classList.toggle('hidden')
-}
+// function addCategory() {
+//   let divAComparsa = document.getElementById('add-category-a-comparsa')
+//   divAComparsa.classList.toggle('hidden')
+// }
 
 function printCatalog() {
   // console.log('%cCatalog:', "font-size: x-large")
@@ -138,10 +138,6 @@ function printCatalog() {
   }
 }
 
-//* FUNCTION CALLS
-
-printCatalog()
-
 //* CLICK LISTENERS ON BUTTONS
 let buttons = Array.from(btns)
 for (let btn of buttons) { //do not remove 'let'
@@ -156,6 +152,6 @@ for (let btn of buttons) { //do not remove 'let'
 }
 
 //?
-// document.addEventListener('load', () => {
-
-// })
+window.addEventListener('load', () => {
+  printCatalog()
+})

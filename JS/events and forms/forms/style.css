@@ -1,0 +1,32 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+body {
+	font-family: sans-serif;
+	/* min-height: 100vh; */
+	padding: 1rem;
+}
+
+h1 {
+	padding: 1rem 0;
+}
+
+form {
+	padding: 1rem;
+	box-shadow: 0 0 0.5rem 0rem hsl(0, 0%, 80%);
+	border-radius: 0.5rem;
+	max-width: max-content;
+}
+
+form > * {
+	display: block;
+	margin-bottom: 1rem;
+}
+
+form > *:last-child {
+	margin-bottom: 0;
+}
