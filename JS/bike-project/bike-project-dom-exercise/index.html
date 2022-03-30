@@ -75,17 +75,18 @@
 				</div>
 			</form> -->
 
-			<button id="preorder-bike-btn">preorder bike</button>
+			<button class="btn btn-primary" id="preorder-bike-btn">
+				preorder bike
+			</button>
 
 			<form action="" id="preorder-bike-a-comparsa" class="hidden">
-				<div class="inline-block">
-					<h3>Choose bike to preorder:</h3>
-					<p>work in progress...</p>
-					<!-- genero automaticamente tutta la lista di oggetti (bikes)
-					che potrò selezionare tramite checkbox o button -->
+				<h3>Choose bike to preorder:</h3>
 
-					<button role="button" type="submit" class="submit">Submit</button>
-				</div>
+				<label for="nameBike">Bike name</label>
+				<input type="text" name="nameBike" id="nameBike" />
+				<!-- input[text], utente inserisce nome bike (uppercase or lowercase) -->
+
+				<button role="button" type="submit" class="submit">Submit</button>
 			</form>
 			<!-- <button id="remove-bike-btn">remove bike</button> -->
 		</header>

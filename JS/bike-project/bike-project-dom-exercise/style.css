@@ -12,6 +12,10 @@
 	font-family: sans-serif;
 }
 
+:focus {
+	outline: none;
+}
+
 body {
 	min-height: 100vh;
 	padding: 1rem;
@@ -70,7 +74,7 @@ h1::after {
 	margin-bottom: 2rem;
 }
 
-button {
+.btn {
 	display: block;
 
 	margin: 0 auto;
@@ -88,22 +92,30 @@ button {
 	cursor: pointer;
 }
 
-button:hover,
-button:focus-visible {
+.btn:hover,
+.btn:focus-visible {
 	outline: 2px solid white;
 	outline-offset: 2px;
 }
 
-.inline-block {
+form {
 	display: inline-block;
 	margin: 1rem 0 2rem 0;
-	outline: 2px solid white;
-	outline-offset: 0.5rem;
+	padding: 1.5rem 1rem;
+	border: 2px solid white;
+}
+
+form > * {
+	display: block;
+	margin-bottom: 1rem;
+}
+
+form > *:last-child {
+	margin-bottom: 0;
 }
 
 .submit {
 	background-color: var(--green);
-	margin-bottom: 0;
 }
 
 .submit:hover,
@@ -195,6 +207,47 @@ h2 {
 	display: flex;
 	flex-flow: column nowrap;
 	gap: 0.3rem;
+
+	position: relative;
+
+	/* if it is a button */
+	border: none;
+	appearance: none;
+	color: white;
+	background: unset;
+	font-size: 1rem;
+
+	cursor: pointer;
+}
+
+.bike-wrapper::before,
+.bike-wrapper::after {
+	content: '';
+	display: none;
+	position: absolute;
+
+	outline: 2px solid white;
+}
+
+.bike-wrapper::before {
+	inset: 0;
+	/* border-radius: 2px; */
+	outline-offset: 2px;
+}
+
+.bike-wrapper::after {
+	top: 10px;
+	left: 10px;
+	height: 20px;
+	aspect-ratio: 1;
+	border-radius: 200px;
+}
+
+.bike-wrapper:hover::before,
+.bike-wrapper:hover::after,
+.bike-wrapper:focus::before,
+.bike-wrapper:focus::after {
+	display: inline-block;
 }
 
 img {

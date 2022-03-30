@@ -112,7 +112,7 @@ function printCatalog() {
 
         heading2.textContent = Object.keys(category)[0]
 
-        let bikeWrapper = document.createElement('div')
+        let bikeWrapper = document.createElement('button')
         bikeWrapper.classList.add('bike-wrapper')
 
         let bikeImg = document.createElement('img')
