@@ -245,12 +245,16 @@ h2 {
 
 .bike-wrapper:hover::before,
 .bike-wrapper:hover::after,
-.bike-wrapper:focus::before,
-.bike-wrapper:focus::after {
+.bike-wrapper:focus-visible::before,
+.bike-wrapper:focus-visible::after {
 	display: inline-block;
 }
 
 img {
 	max-width: clamp(250px, 250px + 10vw, 400px);
 	aspect-ratio: 4/3;
+}
+
+textarea {
+	resize: vertical;
 }
