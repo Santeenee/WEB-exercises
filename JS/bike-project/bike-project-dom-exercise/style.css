@@ -1,6 +1,12 @@
 :root {
+	--background-clr: hsl(213, 38%, 25%);
+	--background-clr-light: hsl(213, 38%, 35%);
+
 	--green: hsl(134, 100%, 50%);
-	--yellow: hsl(41, 100%, 50%);
+	--dark-green: hsl(134, 100%, 25%);
+	--blue: hsl(203 100% 50%);
+	--yellow: hsl(56, 70%, 50%);
+	--orange: hsl(25, 100%, 50%);
 }
 
 *,
@@ -20,15 +26,14 @@ body {
 	min-height: 100vh;
 	padding: 1rem;
 
-	background: #136a8a; /* fallback for old browsers */
-	background: -webkit-linear-gradient(
-		to top,
-		#267871,
-		#136a8a
-	); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to top, #267871, #136a8a);
-
+	background-color: var(--background-clr);
 	color: white;
+}
+
+.flex-row-between {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 header {
@@ -98,39 +103,52 @@ h1::after {
 	outline-offset: 2px;
 }
 
-form {
+.form {
 	display: inline-block;
-	margin: 1rem 0 2rem 0;
-	padding: 1.5rem 1rem;
-	border: 2px solid white;
+	padding: 1rem;
+	background-color: var(--background-clr-light);
+	/* border: 2px solid white; */
 }
 
-form > * {
+.form > * {
 	display: block;
 	margin-bottom: 1rem;
 }
 
-form > *:last-child {
+ol {
+	text-align: left;
+	padding-left: 1.2rem;
+}
+
+li {
+	margin-bottom: 0.2rem;
+}
+
+.form > *:last-child {
 	margin-bottom: 0;
 }
 
-.submit {
+.btn--cart {
+	width: 100%;
+}
+
+/* .btn--add-to-cart {
 	background-color: var(--green);
 }
 
-.submit:hover,
-.submit:focus-visible {
+.btn--add-to-cart:hover,
+.btn--add-to-cart:focus-visible {
 	outline: 2px solid var(--green);
 }
 
-#remove-bike-btn {
+.btn--empty-cart {
 	background-color: var(--yellow);
 }
 
-#remove-bike-btn:hover,
-#remove-bike-btn:focus-visible {
+.btn--empty-cart:hover,
+.btn--empty-cart:focus-visible {
 	outline: 2px solid var(--yellow);
-}
+} */
 
 label {
 	display: inline-block;
@@ -189,6 +207,15 @@ h2 {
 	margin-bottom: 1rem;
 }
 
+h3 {
+	margin-bottom: 0.75rem;
+}
+
+#p--empty-cart {
+	padding: 0.3rem;
+	background-color: rgb(255, 77, 0);
+}
+
 .prices {
 	margin-bottom: 0.3rem;
 }
@@ -206,7 +233,8 @@ h2 {
 	/* flex: 1 1 0; */
 	display: flex;
 	flex-flow: column nowrap;
-	gap: 0.3rem;
+	gap: 0.5rem;
+	margin-bottom: 0.5rem;
 
 	position: relative;
 
@@ -226,16 +254,16 @@ h2 {
 	display: none;
 	position: absolute;
 
-	outline: 2px solid white;
+	outline: 2px solid hsl(0 0% 100% / 0.3);
 }
 
 .bike-wrapper::before {
 	inset: 0;
-	/* border-radius: 2px; */
 	outline-offset: 2px;
 }
 
 .bike-wrapper::after {
+	outline-color: white;
 	top: 10px;
 	left: 10px;
 	height: 20px;
@@ -250,11 +278,63 @@ h2 {
 	display: inline-block;
 }
 
+.selected::after {
+	--bkgr-clr-after: var(--dark-green);
+
+	content: '\2713'; /* check(✅) symbol */
+	display: inline-block;
+	color: white;
+	background-color: var(--bkgr-clr-after);
+
+	animation: boxShadowCheckEffect 300ms ease;
+}
+
+@keyframes boxShadowCheckEffect {
+	50% {
+		transform: scale(1.5);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
 img {
 	max-width: clamp(250px, 250px + 10vw, 400px);
 	aspect-ratio: 4/3;
 }
 
-textarea {
-	resize: vertical;
+select {
+	position: relative;
+	font-size: 0.9rem;
+	padding: 0.2em 0.4em;
+	border-radius: 0;
+	border: none;
+}
+
+select:focus-visible {
+	outline: 2px solid white;
+	outline-offset: 2px;
+}
+
+/* select::before {
+	content: 'Choose number of bikes';
+	position: absolute;
+	left: 0;
+} */
+
+footer {
+	text-align: center;
+}
+
+footer p {
+	margin-bottom: 0.5rem;
+}
+
+a {
+	color: var(--orange);
+}
+
+a:focus-visible {
+	outline: 2px solid white;
+	outline-offset: 2px;
 }

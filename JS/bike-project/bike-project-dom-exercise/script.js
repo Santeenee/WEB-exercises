@@ -37,25 +37,67 @@ let bikeCatalog = { categoryArr }
 //* DOM STUFF
 const main = document.querySelector('main')
 
-const btns = document.querySelectorAll('button')
-// const btnAdd = document.querySelector('#add-bike-btn')
-// const btnPreorder = document.querySelector('#preorder-bike-btn')
-// const btnRemove = document.querySelector('#remove-bike-btn')
+//querySelectorAll() doesn't update when you add a new element
+const btns = document.getElementsByTagName('button')
 
 //* FUNCTIONS
 
-// function addBike() {
-
-// }
-
-function preorderBike() {
+function appearPreorderBike() {
   let divAComparsa = document.getElementById('preorder-bike-a-comparsa')
   divAComparsa.classList.toggle('hidden')
 }
 
-// function removeBike() {
+function emptyCart() {
+  localStorage.clear()
+  showCart()
+}
 
-// }
+function showCart() {
+  let cart = document.getElementById('cart')
+
+  //empty dom cart
+  cart.replaceChildren()
+
+  //controls if localstorage is empty
+  let message = document.createElement('p')
+  if (localStorage.length == 0) {
+    message.id = 'p--empty-cart'
+    message.innerHTML = 'Cart is empty,<br>choose a bike below'
+    cart.appendChild(message)
+  }
+
+  //show items
+  for (let i = 0; i < localStorage.length; i++) {
+    let divWrapper = document.createElement('div')
+    divWrapper.classList.add('flex-row-between')
+
+    let bikeNameCart = document.createElement('p')
+    let nBikesCart = document.createElement('p')
+
+    bikeNameCart.textContent = Object.keys(localStorage)[i]
+    nBikesCart.textContent = Object.values(localStorage)[i]
+
+    divWrapper.appendChild(bikeNameCart)
+    divWrapper.appendChild(nBikesCart)
+    cart.appendChild(divWrapper)
+  }
+}
+
+function addToCart() {
+  let buttons = Array.from(btns)
+
+  buttons.forEach(btn => {
+    if (btn.classList.contains('selected')) {
+      //find sibling select.value and bikename (=select.id)
+      let bikeChosen = btn.parentElement.childNodes[1].childNodes[0].id
+      let nBikes = btn.parentElement.childNodes[1].childNodes[0].value
+
+      localStorage.setItem(bikeChosen, nBikes)
+    }
+  });
+
+  showCart()
+}
 
 function hideForms() {
   let forms = document.querySelectorAll('form')
@@ -75,11 +117,6 @@ function hideForms() {
 //   let divAComparsa = document.getElementById('add-bike-a-comparsa')
 //   divAComparsa.classList.toggle('hidden')
 //   //* that's waaay better
-// }
-
-// function addCategory() {
-//   let divAComparsa = document.getElementById('add-category-a-comparsa')
-//   divAComparsa.classList.toggle('hidden')
 // }
 
 function printCatalog() {
@@ -112,6 +149,8 @@ function printCatalog() {
 
         heading2.textContent = Object.keys(category)[0]
 
+        let innocentDiv = document.createElement('div')
+
         let bikeWrapper = document.createElement('button')
         bikeWrapper.classList.add('bike-wrapper')
 
@@ -122,13 +161,24 @@ function printCatalog() {
         bikeNameP.classList.add('name-p')
         bikeNameP.textContent = bikeObj.name
 
-        let bikeCategoryP = document.createElement('p')
-        bikeCategoryP.classList.add('category-p')
+        //create select with id=nomebici
+        //i vari option che vanno a 1 a 10 con value rispettive
+        let selectWrapper = document.createElement('div') //! add to the dom
+        let selectElem = document.createElement('select')
+        selectElem.id = bikeObj.name
+        for (let i = 0; i < 10; i++) {
+          let optionElem = document.createElement('option')
+          optionElem.value = i + 1
+          optionElem.innerText = optionElem.value
+          selectElem.appendChild(optionElem)
+        }
+        selectWrapper.appendChild(selectElem)
 
         bikeWrapper.appendChild(bikeImg)
         bikeWrapper.appendChild(bikeNameP)
-        bikeWrapper.appendChild(bikeCategoryP)
-        divContainerImages.appendChild(bikeWrapper)
+        innocentDiv.appendChild(bikeWrapper)
+        innocentDiv.appendChild(selectWrapper)
+        divContainerImages.appendChild(innocentDiv)
       }
     }
     divCategory.appendChild(hr)
@@ -136,70 +186,35 @@ function printCatalog() {
     divCategory.appendChild(divContainerImages)
     main.appendChild(divCategory)
   }
+  btnsEventListener()
 }
 
-//* CLICK LISTENERS ON BUTTONS
-let buttons = Array.from(btns)
-for (let btn of buttons) { //do not remove 'let'
-  btn.addEventListener('click', () => {
-    hideForms()
-    // if (btn.id === 'add-bike-btn') addBike()
-    // else if (btn.id === 'add-category-btn') addCategory()
+function btnsEventListener() {
+  let buttons = Array.from(btns)
 
-    /*else*/ if (btn.id === 'preorder-bike-btn') preorderBike()
-    // else if (btn.id === 'remove-bike-btn') removeBike()
-  }/*, { once: true }*/)
+  for (let btn of buttons) { //do not remove 'let'
+    btn.addEventListener('click', () => {
+      //hideForms()
+
+      if (btn.id === 'preorder-bike-btn') appearPreorderBike()
+
+      if (btn.classList.contains('bike-wrapper')) {
+        btn.classList.toggle('selected')
+      }
+
+      if (btn.classList.contains('btn--add-to-cart')) addToCart()
+
+      if (btn.classList.contains('btn--empty-cart')) emptyCart()
+    })
+  }
 }
+
+
 
 //?
 window.addEventListener('load', () => {
   printCatalog()
+  setTimeout(() => {
+    showCart()
+  }, 500);
 })
-
-//========================================//
-//            local storage
-//========================================//
-
-let list = document.querySelector("select");
-let note = document.querySelector("textarea");
-
-let state;
-function setState(newState) {
-  list.textContent = "";
-  for (let name of Object.keys(newState.notes)) {
-    let option = document.createElement("option");
-    option.textContent = name;
-    if (newState.selected == name) option.selected = true;
-    list.appendChild(option);
-  }
-  note.value = newState.notes[newState.selected];
-
-  localStorage.setItem("Notes", JSON.stringify(newState));
-  state = newState;
-}
-
-setState(JSON.parse(localStorage.getItem("Notes")) || {
-  notes: { "shopping list": "Carrots\nRaisins" },
-  selected: "shopping list"
-});
-
-list.addEventListener("change", () => {
-  setState({ notes: state.notes, selected: list.value });
-});
-
-note.addEventListener("change", () => {
-  setState({
-    notes: Object.assign({}, state.notes,
-      { [state.selected]: note.value }),
-    selected: state.selected
-  });
-});
-
-document.querySelector("[data-btn-add-to-cart]")
-  .addEventListener("click", () => {
-    let name = prompt("Note name");
-    if (name) setState({
-      notes: Object.assign({}, state.notes, { [name]: "" }),
-      selected: name
-    });
-  });
