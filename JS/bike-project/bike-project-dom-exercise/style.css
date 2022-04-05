@@ -152,6 +152,14 @@ li {
 	outline: 2px solid var(--yellow);
 } */
 
+.form select {
+	margin-bottom: 0.5rem;
+}
+
+.form .hr {
+	margin-bottom: 0.5rem;
+}
+
 .btn--checkout {
 	margin: 0;
 }
@@ -212,7 +220,7 @@ h3 {
 
 #p--empty-cart {
 	padding: 0.3rem;
-	margin-bottom: 1rem;
+	margin-bottom: 0.5rem;
 	background-color: var(--orange);
 }
 

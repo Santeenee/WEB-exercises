@@ -47,6 +47,11 @@ function appearPreorderBike() {
   divAComparsa.classList.toggle('hidden')
 }
 
+function checkout() {
+  //calculate total
+  alert('purchase done successfully (si, devo fare il resto)')
+}
+
 function emptyCart() {
   localStorage.clear()
   showCart()
@@ -205,11 +210,11 @@ function btnsEventListener() {
       if (btn.classList.contains('btn--add-to-cart')) addToCart()
 
       if (btn.classList.contains('btn--empty-cart')) emptyCart()
+
+      if (btn.classList.contains('btn--checkout')) checkout()
     })
   }
 }
-
-
 
 //?
 window.addEventListener('load', () => {
