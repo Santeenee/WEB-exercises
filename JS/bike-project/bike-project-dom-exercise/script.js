@@ -203,7 +203,9 @@ function printCatalog() {
     divCategory.appendChild(divContainerImages)
     main.appendChild(divCategory)
   }
+  // main.appendChild(hr)
   btnsEventListener()
+  showCart()
 }
 
 function btnsEventListener() {
@@ -228,10 +230,6 @@ function btnsEventListener() {
   }
 }
 
-//?
 window.addEventListener('load', () => {
   printCatalog()
-  setTimeout(() => {
-    showCart()
-  }, 500);
 })

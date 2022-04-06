@@ -15,7 +15,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: sans-serif;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 :focus {
@@ -134,15 +134,12 @@ li {
 	width: 100%;
 }
 
-/* .btn--add-to-cart {
-	background-color: var(--green);
+.btn--secondary {
+	background-color: var(--background-clr-light);
+	border: 2px solid white;
+	color: white;
 }
-
-.btn--add-to-cart:hover,
-.btn--add-to-cart:focus-visible {
-	outline: 2px solid var(--green);
-}
-
+/*
 .btn--empty-cart {
 	background-color: var(--yellow);
 }
@@ -152,12 +149,8 @@ li {
 	outline: 2px solid var(--yellow);
 } */
 
-.form select {
-	margin-bottom: 0.5rem;
-}
-
-.form .hr {
-	margin-bottom: 0.5rem;
+#days {
+	margin-bottom: 1.5rem;
 }
 
 .btn--checkout {
@@ -185,16 +178,28 @@ input[type='text']:last-of-type {
 
 main {
 	margin: 0 auto;
-	max-width: 1200px;
+	max-width: 120rem;
+	position: relative;
 }
+/* 
+main::after {
+	content: '';
+	position: absolute;
+	bottom: -3rem;
+
+	height: 0.1em;
+	width: 100%;
+
+	background-color: white;
+} */
 
 .category {
 	margin-bottom: 3rem;
 }
 
 .hr {
-	height: 1px;
-	background-color: hsl(0 0% 60%);
+	height: 0.1em;
+	background-color: hsl(0 0% 70%);
 	margin-bottom: 2rem;
 }
 
@@ -220,6 +225,14 @@ h3 {
 	padding: 0.3rem;
 	margin-bottom: 0.5rem;
 	background-color: var(--orange);
+}
+
+#cart {
+	border-top: 1px solid hsl(0 0% 60%);
+	border-bottom: 1px solid hsl(0 0% 60%);
+
+	padding-top: 0.5rem;
+	margin-bottom: 1.5rem;
 }
 
 .prices {
@@ -322,14 +335,18 @@ select:focus-visible {
 	outline-offset: 2px;
 }
 
-/* select::before {
-	content: 'Choose number of bikes';
-	position: absolute;
-	left: 0;
-} */
-
 footer {
 	text-align: center;
+	padding: 1rem;
+	background-color: var(--background-clr-light);
+}
+
+footer > *:first-child {
+	padding-top: 0.5rem;
+}
+
+footer > *:last-child {
+	margin-bottom: 0.5rem;
 }
 
 footer p {
