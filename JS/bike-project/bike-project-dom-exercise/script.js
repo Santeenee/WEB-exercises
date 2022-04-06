@@ -27,8 +27,14 @@ let bikeArr1 = [RadRover, RadRoverStepThru]
 let bikeArr2 = [SpeedCruiser, SpeedCruiserStepthru]
 
 // BIKE CATEGORY
-let electricBikes = { 'Electric Bikes': bikeArr1 }
-let standardBikes = { 'Standard Bikes': bikeArr2 }
+let electricBikes = {
+  'Electric Bikes': bikeArr1,
+  dailyPrice: 85
+}
+let standardBikes = {
+  'Standard Bikes': bikeArr2,
+  dailyPrice: 35
+}
 
 let categoryArr = [electricBikes, standardBikes]
 
@@ -132,6 +138,7 @@ function printCatalog() {
   let divCategory
   let hr
   let heading2
+  let divPrice
   let divContainerImages
 
   for (category of categoryArr) {
@@ -144,50 +151,55 @@ function printCatalog() {
     hr.classList.add('hr')
 
     heading2 = document.createElement('h2')
-    heading2.textContent = '<Category>' //placeholder when script throws error
+    heading2.textContent = Object.keys(category)[0]
+
+    divPrice = document.createElement('div')
+    let price = Object.values(category)[1]
+    divPrice.textContent = 'Daily price: ' + price + '€'
+    divPrice.classList.add('daily-price')
 
     divContainerImages = document.createElement('div')
     divContainerImages.classList.add('container-images')
 
-    for (singleCategory of Object.values(category)) {
-      for (bikeObj of singleCategory) {
+    console.log(Object.values(category))
+    console.log(Object.values(category)[0])
 
-        heading2.textContent = Object.keys(category)[0]
+    for (bikeObj of Object.values(Object.values(Object.values(category))[0])) {
 
-        let innocentDiv = document.createElement('div')
+      let innocentDiv = document.createElement('div')
 
-        let bikeWrapper = document.createElement('button')
-        bikeWrapper.classList.add('bike-wrapper')
+      let bikeWrapper = document.createElement('button')
+      bikeWrapper.classList.add('bike-wrapper')
 
-        let bikeImg = document.createElement('img')
-        bikeImg.src = bikeObj.src
+      let bikeImg = document.createElement('img')
+      bikeImg.src = bikeObj.src
 
-        let bikeNameP = document.createElement('p')
-        bikeNameP.classList.add('name-p')
-        bikeNameP.textContent = bikeObj.name
+      let bikeNameP = document.createElement('p')
+      bikeNameP.classList.add('name-p')
+      bikeNameP.textContent = bikeObj.name
 
-        //create select with id=nomebici
-        //i vari option che vanno a 1 a 10 con value rispettive
-        let selectWrapper = document.createElement('div') //! add to the dom
-        let selectElem = document.createElement('select')
-        selectElem.id = bikeObj.name
-        for (let i = 0; i < 10; i++) {
-          let optionElem = document.createElement('option')
-          optionElem.value = i + 1
-          optionElem.innerText = optionElem.value
-          selectElem.appendChild(optionElem)
-        }
-        selectWrapper.appendChild(selectElem)
-
-        bikeWrapper.appendChild(bikeImg)
-        bikeWrapper.appendChild(bikeNameP)
-        innocentDiv.appendChild(bikeWrapper)
-        innocentDiv.appendChild(selectWrapper)
-        divContainerImages.appendChild(innocentDiv)
+      //create select with id=nomebici
+      //i vari option che vanno a 1 a 10 con value rispettive
+      let selectWrapper = document.createElement('div') //! add to the dom
+      let selectElem = document.createElement('select')
+      selectElem.id = bikeObj.name
+      for (let i = 0; i < 10; i++) {
+        let optionElem = document.createElement('option')
+        optionElem.value = i + 1
+        optionElem.innerText = optionElem.value
+        selectElem.appendChild(optionElem)
       }
+      selectWrapper.appendChild(selectElem)
+
+      bikeWrapper.appendChild(bikeImg)
+      bikeWrapper.appendChild(bikeNameP)
+      innocentDiv.appendChild(bikeWrapper)
+      innocentDiv.appendChild(selectWrapper)
+      divContainerImages.appendChild(innocentDiv)
     }
     divCategory.appendChild(hr)
     divCategory.appendChild(heading2)
+    divCategory.appendChild(divPrice)
     divCategory.appendChild(divContainerImages)
     main.appendChild(divCategory)
   }

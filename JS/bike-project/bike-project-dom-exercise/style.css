@@ -163,13 +163,6 @@ li {
 .btn--checkout {
 	margin: 0;
 }
-/* 
-label {
-	display: inline-block;
-	min-width: 13em;
-	text-align: left;
-	margin-bottom: 0.3rem;
-} */
 
 .hidden {
 	display: none;
@@ -210,6 +203,11 @@ h2 {
 	font-weight: 400;
 
 	padding-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.daily-price {
+	text-align: center;
 	margin-bottom: 1rem;
 }
 
