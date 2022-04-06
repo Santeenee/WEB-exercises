@@ -48,11 +48,6 @@ const btns = document.getElementsByTagName('button')
 
 //* FUNCTIONS
 
-function appearPreorderBike() {
-  let divAComparsa = document.getElementById('preorder-bike-a-comparsa')
-  divAComparsa.classList.toggle('hidden')
-}
-
 function checkout() {
   //calculate total
   alert('purchase done successfully (si, devo fare il resto)')
@@ -85,8 +80,8 @@ function showCart() {
     let bikeNameCart = document.createElement('p')
     let nBikesCart = document.createElement('p')
 
-    bikeNameCart.textContent = Object.keys(localStorage)[i]
-    nBikesCart.textContent = Object.values(localStorage)[i]
+    bikeNameCart.innerText = Object.keys(localStorage)[i]
+    nBikesCart.innerText = Object.values(localStorage)[i]
 
     divWrapper.appendChild(bikeNameCart)
     divWrapper.appendChild(nBikesCart)
@@ -110,24 +105,14 @@ function addToCart() {
   showCart()
 }
 
-function hideForms() {
-  let forms = document.querySelectorAll('form')
-  for (let form of forms) {
-    if (!form.classList.contains('hidden')) {
-      form.classList.add('hidden')
-    }
-  }
-}
-
-// function addBike() {
-//   //? maybe the use of createElement here doesn't make any sense
-//   //? To better control the behaviour of the button, I think it's
-//   //? better to set display to 'none' on the container of the form
-//   //? and than toggle the display 'none/block' in this function
-
-//   let divAComparsa = document.getElementById('add-bike-a-comparsa')
-//   divAComparsa.classList.toggle('hidden')
-//   //* that's waaay better
+//do not cancel me
+// function hideForms() {
+//   let forms = document.querySelectorAll('form')
+//   for (let form of forms) {
+//     if (!form.classList.contains('hidden')) {
+//       form.classList.add('hidden')
+//     }
+//   }
 // }
 
 function printCatalog() {
@@ -151,11 +136,11 @@ function printCatalog() {
     hr.classList.add('hr')
 
     heading2 = document.createElement('h2')
-    heading2.textContent = Object.keys(category)[0]
+    heading2.innerText = Object.keys(category)[0]
 
     divPrice = document.createElement('div')
     let price = Object.values(category)[1]
-    divPrice.textContent = 'Daily price: ' + price + '€'
+    divPrice.innerText = 'Daily price: ' + price + '€'
     divPrice.classList.add('daily-price')
 
     divContainerImages = document.createElement('div')
@@ -176,7 +161,7 @@ function printCatalog() {
 
       let bikeNameP = document.createElement('p')
       bikeNameP.classList.add('name-p')
-      bikeNameP.textContent = bikeObj.name
+      bikeNameP.innerText = bikeObj.name
 
       //create select with id=nomebici
       //i vari option che vanno a 1 a 10 con value rispettive
@@ -203,29 +188,27 @@ function printCatalog() {
     divCategory.appendChild(divContainerImages)
     main.appendChild(divCategory)
   }
-  // main.appendChild(hr)
   btnsEventListener()
   showCart()
 }
 
 function btnsEventListener() {
+
   let buttons = Array.from(btns)
-
   for (let btn of buttons) { //do not remove 'let'
-    btn.addEventListener('click', () => {
-      //hideForms()
 
-      if (btn.id === 'preorder-bike-btn') appearPreorderBike()
+    btn.addEventListener('click', () => {
 
       if (btn.classList.contains('bike-wrapper')) {
         btn.classList.toggle('selected')
       }
 
-      if (btn.classList.contains('btn--add-to-cart')) addToCart()
+      // = button contains data-add-to-cart attribute
+      if ('addToCart' in btn.dataset) addToCart()
 
-      if (btn.classList.contains('btn--empty-cart')) emptyCart()
+      if ('emptyCart' in btn.dataset) emptyCart()
 
-      if (btn.classList.contains('btn--checkout')) checkout()
+      if ('checkout' in btn.dataset) checkout()
     })
   }
 }
