@@ -146,8 +146,8 @@ function printCatalog() {
     divContainerImages = document.createElement('div')
     divContainerImages.classList.add('container-images')
 
-    console.log(Object.values(category))
-    console.log(Object.values(category)[0])
+    // console.log(Object.values(category))
+    // console.log(Object.values(category)[0])
 
     for (bikeObj of Object.values(Object.values(Object.values(category))[0])) {
 
@@ -165,7 +165,8 @@ function printCatalog() {
 
       //create select with id=nomebici
       //i vari option che vanno a 1 a 10 con value rispettive
-      let selectWrapper = document.createElement('div') //! add to the dom
+      let selectBtnWrapper = document.createElement('div')
+      selectBtnWrapper.classList.add('flex-row-stretch')
       let selectElem = document.createElement('select')
       selectElem.id = bikeObj.name
       for (let i = 0; i < 10; i++) {
@@ -174,12 +175,18 @@ function printCatalog() {
         optionElem.innerText = optionElem.value
         selectElem.appendChild(optionElem)
       }
-      selectWrapper.appendChild(selectElem)
+      selectBtnWrapper.appendChild(selectElem)
+
+      let addToCartBtn = document.createElement('button')
+      addToCartBtn.dataset.addToCart = ''
+      addToCartBtn.classList.add('btn', 'btn--primary', 'margin0')
+      addToCartBtn.innerText = 'Add to cart'
+      selectBtnWrapper.appendChild(addToCartBtn)
 
       bikeWrapper.appendChild(bikeImg)
       bikeWrapper.appendChild(bikeNameP)
       innocentDiv.appendChild(bikeWrapper)
-      innocentDiv.appendChild(selectWrapper)
+      innocentDiv.appendChild(selectBtnWrapper)
       divContainerImages.appendChild(innocentDiv)
     }
     divCategory.appendChild(hr)
