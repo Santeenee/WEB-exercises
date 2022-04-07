@@ -89,18 +89,11 @@ function showCart() {
   }
 }
 
-function addToCart() {
-  let buttons = Array.from(btns)
+function addToCart(btn) {
+  let bikeName = btn.dataset.addToCart
+  let nBikes = btn.parentElement.childNodes[0].value
 
-  buttons.forEach(btn => {
-    if (btn.classList.contains('selected')) {
-      //find sibling select.value and bikename (=select.id)
-      let bikeChosen = btn.parentElement.childNodes[1].childNodes[0].id
-      let nBikes = btn.parentElement.childNodes[1].childNodes[0].value
-
-      localStorage.setItem(bikeChosen, nBikes)
-    }
-  });
+  localStorage.setItem(bikeName, nBikes)
 
   showCart()
 }
@@ -166,7 +159,7 @@ function printCatalog() {
       //create select with id=nomebici
       //i vari option che vanno a 1 a 10 con value rispettive
       let selectBtnWrapper = document.createElement('div')
-      selectBtnWrapper.classList.add('flex-row-stretch')
+      selectBtnWrapper.classList.add('flex-row-1rem-gap')
       let selectElem = document.createElement('select')
       selectElem.id = bikeObj.name
       for (let i = 0; i < 10; i++) {
@@ -178,7 +171,7 @@ function printCatalog() {
       selectBtnWrapper.appendChild(selectElem)
 
       let addToCartBtn = document.createElement('button')
-      addToCartBtn.dataset.addToCart = ''
+      addToCartBtn.dataset.addToCart = `${bikeObj.name}`
       addToCartBtn.classList.add('btn', 'btn--primary', 'margin0')
       addToCartBtn.innerText = 'Add to cart'
       selectBtnWrapper.appendChild(addToCartBtn)
@@ -211,7 +204,9 @@ function btnsEventListener() {
       }
 
       // = button contains data-add-to-cart attribute
-      if ('addToCart' in btn.dataset) addToCart()
+      if ('addToCart' in btn.dataset) {
+        addToCart(btn)
+      }
 
       if ('emptyCart' in btn.dataset) emptyCart()
 

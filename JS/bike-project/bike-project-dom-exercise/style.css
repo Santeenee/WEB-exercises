@@ -30,17 +30,17 @@ button.margin0 {
 	margin: 0;
 }
 
-.flex-row-stretch {
+.flex-row-1rem-gap {
 	display: flex;
 	flex-direction: row;
 	gap: 1rem;
 }
 
-.flex-row-stretch > select {
+.flex-row-1rem-gap > select {
 	flex: 1;
 }
 
-.flex-row-stretch > [data-add-to-cart] {
+.flex-row-1rem-gap > [data-add-to-cart] {
 	flex: 5;
 }
 
@@ -315,9 +315,9 @@ h3 {
 	background: unset;
 	font-size: 1rem;
 
-	cursor: pointer;
+	/* cursor: pointer; */
 }
-
+/* 
 .bike-wrapper::before,
 .bike-wrapper::after {
 	content: '';
@@ -351,13 +351,13 @@ h3 {
 .selected::after {
 	--bkgr-clr-after: var(--dark-green);
 
-	content: '\2713'; /* check(✅) symbol */
+	content: '\2713';
 	display: inline-block;
 	color: white;
 	background-color: var(--bkgr-clr-after);
 
 	animation: boxShadowCheckEffect 300ms ease;
-}
+} */
 
 @keyframes boxShadowCheckEffect {
 	50% {
