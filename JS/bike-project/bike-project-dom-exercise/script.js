@@ -46,33 +46,52 @@ const main = document.querySelector('main')
 //querySelectorAll() doesn't update when you add a new element
 const btns = document.getElementsByTagName('button')
 
+let total = document.getElementById('total')
+let days = document.getElementById('days')
+
 //* FUNCTIONS
+
+function calculateTotal(dailyPrice, nBikes) {
+  let temp = total.innerText
+  total.innerText = Number(total.innerText) + Number(days.value * dailyPrice * nBikes)
+  console.log(`${temp} + ${days.value} * ${dailyPrice} * ${nBikes} = ${total.innerText}`)
+}
 
 function checkout() {
   //calculate total
-  alert('purchase done successfully (si, devo fare il resto)')
+  let isOrderConfirmed = confirm('Sei sicuro di completare l\' ordine da ' + total.innerHTML + '€?')
+
+  if (isOrderConfirmed) {
+    alert('Grazie per il tuo ordine!')
+    emptyCart()
+  } else {
+    alert('Ordine annullato')
+  }
 }
 
 function emptyCart() {
   localStorage.clear()
+  total.innerHTML = Number(0)
   showCart()
 }
 
-function showCart() {
+function showCart(isChangeEventFired = false) {
   let cart = document.getElementById('cart')
 
   //empty dom cart
   cart.replaceChildren()
 
-  //controls if localstorage is empty
-  let message = document.createElement('p')
+  //controls if localstorage is EMPTY
   if (localStorage.length == 0) {
+    let message = document.createElement('p')
     message.id = 'p--empty-cart'
     message.innerHTML = 'Cart is empty,<br>choose a bike below'
     cart.appendChild(message)
   }
 
-  //show items
+  if (isChangeEventFired) total.innerText = Number(0)
+
+  //show items and calculate final price (total)
   for (let i = 0; i < localStorage.length; i++) {
     let divWrapper = document.createElement('div')
     divWrapper.classList.add('flex-row-between')
@@ -80,8 +99,18 @@ function showCart() {
     let bikeNameCart = document.createElement('p')
     let nBikesCart = document.createElement('p')
 
+    //show bike name in cart
     bikeNameCart.innerText = Object.keys(localStorage)[i]
-    nBikesCart.innerText = Object.values(localStorage)[i]
+
+    //separate nBikes and categoryDailyPrice
+    let nBikesPlusDailyPrice = Object.values(localStorage)[i]
+    let nBikesCartValue = nBikesPlusDailyPrice.split(' || ')[0]
+    let dailyPrice = nBikesPlusDailyPrice.split(' || ')[1]
+
+    //show number of that bike in cart
+    nBikesCart.innerText = nBikesCartValue
+
+    calculateTotal(dailyPrice, nBikesCartValue)
 
     divWrapper.appendChild(bikeNameCart)
     divWrapper.appendChild(nBikesCart)
@@ -91,9 +120,10 @@ function showCart() {
 
 function addToCart(btn) {
   let bikeName = btn.dataset.addToCart
+  let categoryDailyPrice = btn.dataset.categoryPrice
   let nBikes = btn.parentElement.childNodes[0].value
 
-  localStorage.setItem(bikeName, nBikes)
+  localStorage.setItem(bikeName, nBikes + " || " + categoryDailyPrice)
 
   showCart()
 }
@@ -123,7 +153,7 @@ function printCatalog() {
 
     divCategory = document.createElement('div')
     divCategory.classList.add('category')
-    //? divCategory.id = ?;
+    divCategory.id = Object.keys(category)[0]
 
     hr = document.createElement('div')
     hr.classList.add('hr')
@@ -138,9 +168,6 @@ function printCatalog() {
 
     divContainerImages = document.createElement('div')
     divContainerImages.classList.add('container-images')
-
-    // console.log(Object.values(category))
-    // console.log(Object.values(category)[0])
 
     for (bikeObj of Object.values(Object.values(Object.values(category))[0])) {
 
@@ -172,6 +199,7 @@ function printCatalog() {
 
       let addToCartBtn = document.createElement('button')
       addToCartBtn.dataset.addToCart = `${bikeObj.name}`
+      addToCartBtn.dataset.categoryPrice = `${price}`
       addToCartBtn.classList.add('btn', 'btn--primary', 'margin0')
       addToCartBtn.innerText = 'Add to cart'
       selectBtnWrapper.appendChild(addToCartBtn)
@@ -214,6 +242,8 @@ function btnsEventListener() {
     })
   }
 }
+
+days.addEventListener('change', () => showCart(true))
 
 window.addEventListener('load', () => {
   printCatalog()
