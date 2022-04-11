@@ -48,6 +48,7 @@ const btns = document.getElementsByTagName('button')
 
 let total = document.getElementById('total')
 let days = document.getElementById('days')
+let mySound = new Audio('./assets/sounds/mixkit-small-bike-bell-ding-1609.mp3')
 
 //* FUNCTIONS
 
@@ -57,11 +58,23 @@ function calculateTotal(dailyPrice, nBikes) {
   console.log(`${temp} + ${days.value} * ${dailyPrice} * ${nBikes} = ${total.innerText}`)
 }
 
+function bikeDing() {
+  //https://mixkit.co/free-sound-effects/bike/
+  mySound.play()
+}
+
 function checkout() {
   //calculate total
-  let isOrderConfirmed = confirm('Sei sicuro di completare l\' ordine da ' + total.innerHTML + '€?')
+  let isOrderConfirmed = false
+  if (total.innerText != '0') {
+    isOrderConfirmed = confirm('Sei sicuro di completare l\' ordine da ' + total.innerText + '€?')
+  } else {
+    alert('Il carrello è vuoto')
+    return
+  }
 
   if (isOrderConfirmed) {
+    bikeDing()
     alert('Grazie per il tuo ordine!')
     emptyCart()
   } else {
