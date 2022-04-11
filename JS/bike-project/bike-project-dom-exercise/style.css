@@ -282,6 +282,9 @@ h3 {
 	border-top: 1px solid hsl(0 0% 60%);
 	border-bottom: 1px solid hsl(0 0% 60%);
 
+	height: 8.5rem;
+	overflow: auto;
+
 	padding-block-start: 0.5rem;
 	margin-block-end: 1.5rem;
 }

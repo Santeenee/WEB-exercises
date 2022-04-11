@@ -84,50 +84,52 @@ function checkout() {
 
 function emptyCart() {
   localStorage.clear()
-  total.innerHTML = Number(0)
+  total.innerText = Number(0)
   showCart()
 }
 
-function showCart(isChangeEventFired = false) {
+function showCart() {
   let cart = document.getElementById('cart')
 
   //empty dom cart
   cart.replaceChildren()
 
   //controls if localstorage is EMPTY
-  if (localStorage.length == 0) {
+  if (localStorage.length == 0 || Object.keys(localStorage)[0] == "Days") {
     let message = document.createElement('p')
     message.id = 'p--empty-cart'
     message.innerHTML = 'Cart is empty,<br>choose a bike below'
     cart.appendChild(message)
   }
 
-  if (isChangeEventFired) total.innerText = Number(0)
+  total.innerText = Number(0)
 
   //show items and calculate final price (total)
   for (let i = 0; i < localStorage.length; i++) {
-    let divWrapper = document.createElement('div')
-    divWrapper.classList.add('flex-row-between')
+    if (Object.keys(localStorage)[i] != "Days") {
+      let divWrapper = document.createElement('div')
+      divWrapper.classList.add('flex-row-between')
 
-    let bikeNameCart = document.createElement('p')
-    let nBikesCart = document.createElement('p')
+      let bikeNameCart = document.createElement('p')
+      let nBikesCart = document.createElement('p')
 
-    //show bike name in cart
-    bikeNameCart.innerText = Object.keys(localStorage)[i]
+      //show bike name in cart
+      bikeNameCart.innerText = Object.keys(localStorage)[i]
 
-    //separate nBikes and categoryDailyPrice
-    let nBikesPlusDailyPrice = Object.values(localStorage)[i]
-    let nBikesCartValue = nBikesPlusDailyPrice.split(' || ')[0]
-    let dailyPrice = nBikesPlusDailyPrice.split(' || ')[1]
+      //separate nBikes and categoryDailyPrice
+      let nBikesPlusDailyPrice = Object.values(localStorage)[i]
+      let nBikesCartValue = nBikesPlusDailyPrice.split(' || ')[0]
+      let dailyPrice = nBikesPlusDailyPrice.split(' || ')[1]
 
-    //show number of that bike in cart
-    nBikesCart.innerText = nBikesCartValue
+      //show number of that bike in cart
+      nBikesCart.innerText = nBikesCartValue
 
-    calculateTotal(dailyPrice, nBikesCartValue)
+      calculateTotal(dailyPrice, nBikesCartValue)
 
-    divWrapper.appendChild(bikeNameCart)
-    divWrapper.appendChild(nBikesCart)
-    cart.appendChild(divWrapper)
+      divWrapper.appendChild(bikeNameCart)
+      divWrapper.appendChild(nBikesCart)
+      cart.appendChild(divWrapper)
+    }
   }
 }
 
@@ -256,8 +258,14 @@ function btnsEventListener() {
   }
 }
 
-days.addEventListener('change', () => showCart(true))
+days.addEventListener('change', () => {
+  showCart()
+  localStorage.setItem('Days', days.value)
+})
 
 window.addEventListener('load', () => {
+  if (localStorage.getItem('Days')) {
+    days.value = localStorage.getItem('Days')
+  }
   printCatalog()
 })
