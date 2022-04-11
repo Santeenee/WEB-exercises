@@ -417,6 +417,7 @@ a:focus-visible {
 	h1 {
 		max-width: min-content;
 		font-size: clamp(2rem, 3rem + 3vw, 30rem);
+		margin-block-end: 2rem;
 	}
 	h1::before,
 	h1::after {
