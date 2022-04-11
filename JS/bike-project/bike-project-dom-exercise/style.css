@@ -414,8 +414,18 @@ a:focus-visible {
 }
 
 @media (max-width: 500px) {
+	h1 {
+		max-width: min-content;
+		font-size: clamp(2rem, 3rem + 3vw, 30rem);
+	}
 	h1::before,
 	h1::after {
 		display: none;
+	}
+	.subtitle {
+		display: none;
+	}
+	.form {
+		width: 100%;
 	}
 }
