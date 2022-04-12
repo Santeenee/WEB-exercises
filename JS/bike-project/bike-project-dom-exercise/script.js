@@ -143,16 +143,6 @@ function addToCart(btn) {
   showCart()
 }
 
-//do not cancel me
-// function hideForms() {
-//   let forms = document.querySelectorAll('form')
-//   for (let form of forms) {
-//     if (!form.classList.contains('hidden')) {
-//       form.classList.add('hidden')
-//     }
-//   }
-// }
-
 function printCatalog() {
   // console.log('%cCatalog:', "font-size: x-large")
   // console.log(JSON.stringify(categoryArr, null, 4));
