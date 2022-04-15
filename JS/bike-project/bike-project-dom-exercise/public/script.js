@@ -1,8 +1,8 @@
-//* FIRESTORE STUFF
+//* FIRESTORE
 // Initialize Cloud Firestore and get a reference to the service
 const db = firebase.firestore()
 
-//* DOM STUFF
+//* DOM
 const main = document.querySelector('main')
 
 //querySelectorAll() doesn't update when you add a new element
@@ -11,6 +11,7 @@ const btns = document.getElementsByTagName('button')
 let total = document.getElementById('total')
 let days = document.getElementById('days')
 let mySound; //inizialization on load
+let cartArr = []
 
 //* FUNCTIONS
 
@@ -34,33 +35,12 @@ function retrieveData() {
 }
 
 function sendOrderToDatabase() {
-  let arrayOfBikes = []
-  for (let i = 0; i < localStorage.length; i++) {
-
-    let keys = Object.keys(localStorage)
-    let values = Object.values(localStorage)
-
-    //sometimes firebase generates some key-value pairs in localStorage
-    if (keys[i] != "Days" && !keys[i].includes('firebase')) {
-      let bikeAmountAndDailyPrice = values[i]
-      let nBikesCartValue = bikeAmountAndDailyPrice.split(' || ')[0]
-      let dailyPrice = bikeAmountAndDailyPrice.split(' || ')[1]
-
-      //add some bikes to 'arrayOfBikes'
-      let bikeObj = {
-        name: keys[i],
-        nBikes: nBikesCartValue
-      }
-      arrayOfBikes.push(bikeObj)
-    }
-  }
+  let arrayOfBikes = JSON.parse(localStorage.getItem('Cart'))
   let tot = Number(total.innerText)
 
   //milliseconds from 1st january 1970
   //(assumo che non avvenga mai più di un'ordine nello stesso millisecondo)
   let timestamp = new Date().getTime();
-
-  console.log(arrayOfBikes)
 
   // Add a new document in collection "orders" 
   //("order"+timestamp is an identifier for the document)
@@ -79,11 +59,17 @@ function sendOrderToDatabase() {
   });
 }
 
-function calculateTotal(dailyPrice, nBikes) {
-  let temp = total.innerText
-  total.innerText = Number(total.innerText) + Number(days.value * dailyPrice * nBikes)
-  console.log(`${temp} + ${days.value} * ${dailyPrice} * ${nBikes} = ${total.innerText}`)
-  return Number(total.innerText)
+function calculateTotal(localCart) {
+
+  total.innerText = Number(0)
+
+  let totFromLocalStorage = localCart
+    .map(bike => bike.dailyPrice * bike.bikeAmount)
+    .reduce((prev, curr) => prev + curr)
+
+  totFromLocalStorage *= Number(days.value)
+
+  total.innerText = Number(totFromLocalStorage)
 }
 
 function bikeDing() {
@@ -92,8 +78,8 @@ function bikeDing() {
 }
 
 function checkout() {
-  //calculate total
   let isOrderConfirmed = false
+
   if (total.innerText != '0') {
     isOrderConfirmed = confirm('Sei sicuro di completare l\' ordine da ' + total.innerText + '€?')
   } else {
@@ -113,7 +99,9 @@ function checkout() {
 
 function emptyCart() {
   localStorage.clear()
+  localStorage.setItem('Days', days.value)
   total.innerText = Number(0)
+  cartArr = []
   showCart()
 }
 
@@ -123,11 +111,7 @@ function showCart() {
   //empty dom cart
   cart.replaceChildren()
 
-  //control if localstorage is EMPTY
-  if (localStorage.length == 0
-    || (localStorage.length == 1
-      && Object.keys(localStorage)[0] == "Days")) {
-
+  if (!localStorage.getItem('Cart')) {
     let message = document.createElement('p')
     message.id = 'p--empty-cart'
     message.innerHTML = 'Cart is empty,<br>choose a bike below'
@@ -136,36 +120,25 @@ function showCart() {
     return
   }
 
-  total.innerText = Number(0)
-
-  //TODO use high order functions to retrive data...
-
   //show items and calculate final price (total)
-  for (let i = 0; i < localStorage.length; i++) {
-    if (Object.keys(localStorage)[i] != "Days" && !Object.keys(localStorage)[i].includes('firebase')) {
-      let divWrapper = document.createElement('div')
-      divWrapper.classList.add('flex-row-between')
+  let localCart = JSON.parse(localStorage.getItem('Cart'))
 
-      let bikeNameCart = document.createElement('p')
-      let nBikesCart = document.createElement('p')
+  calculateTotal(localCart)
 
-      //show bike name in cart
-      bikeNameCart.innerText = Object.keys(localStorage)[i]
+  for (const bikeObj of localCart) {
+    let divWrapper = document.createElement('div')
+    divWrapper.classList.add('flex-row-between')
 
-      //separate nBikes and categoryDailyPrice
-      let nBikesPlusDailyPrice = Object.values(localStorage)[i]
-      let nBikesCartValue = nBikesPlusDailyPrice.split(' || ')[0]
-      let dailyPrice = nBikesPlusDailyPrice.split(' || ')[1]
+    let bikeNameCart = document.createElement('p')
+    let bikeAmountCart = document.createElement('p')
 
-      //show number of that bike in cart
-      nBikesCart.innerText = nBikesCartValue
+    //show bike name and quantity in cart
+    bikeNameCart.innerText = bikeObj.bikeName
+    bikeAmountCart.innerText = bikeObj.bikeAmount
 
-      calculateTotal(dailyPrice, nBikesCartValue)
-
-      divWrapper.appendChild(bikeNameCart)
-      divWrapper.appendChild(nBikesCart)
-      cart.appendChild(divWrapper)
-    }
+    divWrapper.appendChild(bikeNameCart)
+    divWrapper.appendChild(bikeAmountCart)
+    cart.appendChild(divWrapper)
   }
 }
 
@@ -174,7 +147,28 @@ function addToCart(btn) {
   let categoryDailyPrice = btn.dataset.categoryPrice
   let nBikes = btn.parentElement.childNodes[0].value
 
-  localStorage.setItem(bikeName, nBikes + " || " + categoryDailyPrice)
+  let obj = {
+    bikeName: bikeName,
+    dailyPrice: Number(categoryDailyPrice),
+    bikeAmount: Number(nBikes)
+  }
+
+  //creo array di oggetti che contiene qualcosa 
+  //solo se f.bikeName == bikeName in uno di essi
+  let doesCartcontainBikeName = cartArr.filter(f => f.bikeName == bikeName)
+
+  if (doesCartcontainBikeName.length == 0) {
+    cartArr.push(obj)
+  } else {
+    //modifico cartArr dove trovo l'oggetto con lo stesso nome di bikeName
+    //e ne incremento il bikeAmount
+    cartArr.map(f => {
+      if (f.bikeName == bikeName) f.bikeAmount += Number(nBikes)
+    })
+    console.log('array modified')
+  }
+
+  localStorage.setItem('Cart', JSON.stringify(cartArr))
 
   showCart()
 }
@@ -184,10 +178,8 @@ function printCatalogFromDb(doc) {
   let category = doc.data()
   let price = category['dailyPrice']
 
-  //console.log(JSON.stringify(category, null, 4));
-  //? to localStorage?
 
-  //setup for some manipulation of thedommmmmmm
+  //setup for some manipulation of the dom
   let divCategory
   let heading2
   let divPrice
@@ -265,18 +257,16 @@ function btnsEventListener() {
 
     btn.addEventListener('click', () => {
 
-      if (btn.classList.contains('bike-wrapper')) {
-        btn.classList.toggle('selected')
-      }
-
-      // = button contains data-add-to-cart attribute
-      if ('addToCart' in btn.dataset) {
-        addToCart(btn)
-      }
+      // if button contains data-add-to-cart attribute
+      if ('addToCart' in btn.dataset) addToCart(btn)
 
       if ('emptyCart' in btn.dataset) emptyCart()
 
       if ('checkout' in btn.dataset) checkout()
+
+      //ho usato data-* attributes perché ci sono diversi AddToCart buttons
+      //di conseguenza non potevo usare id. Infine dataset è usato 
+      //per la parte di scripting, non di stile come le classi
     })
   }
 }
@@ -287,7 +277,7 @@ days.addEventListener('change', () => {
 })
 
 window.addEventListener('load', () => {
-  //...hopefully it will be loaded before the .play() starts
+  //...hopefully it will be loaded before the mySound.play() starts
   mySound = new Audio('./assets/sounds/mixkit-small-bike-bell-ding-1609.mp3')
 
   if (localStorage.getItem('Days')) {

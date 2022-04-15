@@ -2,11 +2,14 @@ function retrieveOrders() {
   // Initialize Cloud Firestore and get a reference to the service
   const db = firebase.firestore()
 
+  //prendo dalla raccolta "orders" tutti i vari ordini
   db.collection("orders")
+    // li ordino cronologicamente in modo decrescente
+    // (il piu' recente in cima)
     .orderBy("timestamp", "desc")
     .get()
     .then(querySnapshot => {
-      //for every document
+      //per ogni ordine stampo un div nella pagina che mi mostra l'ordine effettuato
       querySnapshot.forEach(doc => printOrdersFromDb(doc))
     })
     .catch(err => {
@@ -19,11 +22,7 @@ function printOrdersFromDb(doc) {
   let orderName = doc.id
   let order = doc.data()
 
-  console.log(orderName)
-  console.log(JSON.stringify(order, null, 4));
-
   let nDays = order['nDays']
-  // let timestamp = order['timestamp']
   let tot = order['tot']
 
   let orderContainer = document.createElement('div')
@@ -53,10 +52,10 @@ function printOrdersFromDb(doc) {
     bikeOrderWrapper.classList.add('flex-row-between')
 
     let pName = document.createElement('p')
-    pName.innerText = bike.name
+    pName.innerText = bike.bikeName
 
     let pBikeAmount = document.createElement('p')
-    pBikeAmount.innerText = bike.nBikes
+    pBikeAmount.innerText = bike.bikeAmount
 
     bikeOrderWrapper.appendChild(pName)
     bikeOrderWrapper.appendChild(pBikeAmount)
